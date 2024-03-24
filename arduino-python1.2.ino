@@ -8,6 +8,7 @@ int leftRightServoPin = 6; // Pin for continuous rotation servo
 int upDownServoPin = 12;            // Pin for up and down camera movement
 int x_pos, y_pos;                   // holding (x,y) coord from bbox
 int w, h;                           // holding horizontal(w) and vertical length(h)
+int dlay = 10;                     // in miliseconds
 
 // loop only ran once, creates the connections we declared
 void setup() {
@@ -34,28 +35,29 @@ void loop() {
     w = values[2];
     h = values[3];
 
-    // left and right movement
-    if (x_pos > 350) {
+    // right turn
+    if (x_pos > 550) {
       leftRightPos = constrain(leftRightPos + 1, 0, 180);
       leftRightServo.write(leftRightPos);
-      delay(10);
+      delay(dlay);
     }
-    else if (x_pos < 200) {
+    // left turn
+    else if (x_pos < 90) {
       leftRightPos = constrain(leftRightPos - 1, 0, 180);
       leftRightServo.write(leftRightPos);
-      delay(10);
+      delay(dlay);
     }
-    // up and down movement
-    if (y_pos < 120) {
+    // down
+    if (y_pos < 20) {
       upDownPosition = constrain(upDownPosition - 1, 0, 180);
       upDownServo.write(upDownPosition);
-      delay(10);
+      delay(dlay);
     }
-
-    else if (y_pos > 150) {
+    // up
+    else if (y_pos > 250) {
       upDownPosition = constrain(upDownPosition + 1, 0, 180);
       upDownServo.write(upDownPosition);
-      delay(10);
+      delay(dlay);
     }
   }
 }
